@@ -1,0 +1,361 @@
+name: "🐛 EOP Defect Report"
+description: "Report a defect, regression, SLO violation, or unexpected behavior in EOP. Use this for bugs discovered during development, CI failures, or integration testing."
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        > **⚠️ Binding Contract Notice**
+        > This defect report is subject to the same engineering standards as all EOP work.
+        > A defect is only **Done** when the fix passes CI, all sanitizers are clean, at least one peer review is approved, and the root cause is documented.
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 1 — METADATA
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: "## 📌 Issue Metadata"
+
+  - type: dropdown
+    id: team
+    attributes:
+      label: "Team ✅"
+      description: "Squad that owns the defective component."
+      options:
+        - Catalyst
+        - Hyperion
+        - Nexus
+        - Orion
+        - "Unknown / Cross-squad"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: "Milestone ✅"
+      description: "Milestone where this defect was introduced or discovered."
+      options:
+        - "M0 — Product Discovery"
+        - "M1 — Core Communication Layer"
+        - "M2 — Processing Capability"
+        - "M3 — Product API & Integration"
+        - "M4 — Edge & IoT Integration"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Priority / Severity ✅"
+      description: "Impact on product progression and system correctness."
+      options:
+        - "Urgent — System crash, data corruption, or SLO violated (blocks current milestone)"
+        - "High — Acceptance criterion not met, or CI is red"
+        - "Medium — Functional issue, workaround exists"
+        - "Low — Minor issue, no functional impact"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: "Size ✅"
+      options:
+        - "XS — < 1 day"
+        - "S — 1–2 days"
+        - "M — 3–5 days"
+        - "L — 6–10 days"
+        - "XL — > 10 days"
+    validations:
+      required: true
+
+  - type: input
+    id: estimated_days
+    attributes:
+      label: "Estimated Days ✅"
+      placeholder: "e.g. 1"
+    validations:
+      required: true
+
+  - type: input
+    id: target_date
+    attributes:
+      label: "Target Date ✅"
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 2 — TRACEABILITY
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🏷️ Traceability
+
+  - type: input
+    id: failing_requirement
+    attributes:
+      label: "Failing Requirement / AC"
+      description: "Which US, NFR, or Acceptance Criterion is violated by this defect?"
+      placeholder: "e.g. US-102 AC-6 — ThreadSanitizer must report zero data races"
+    validations:
+      required: false
+
+  - type: input
+    id: related_adr
+    attributes:
+      label: "Relevant ADR"
+      description: "ADR whose decision is involved in the defect (if applicable)."
+      placeholder: "e.g. ADR-002 (Concurrency Model)"
+    validations:
+      required: false
+
+  - type: input
+    id: branch_commit
+    attributes:
+      label: "Branch / Commit ✅"
+      description: "Branch name or commit SHA where the defect was observed."
+      placeholder: "feature/103-node-registration  or  a1b2c3d4"
+    validations:
+      required: true
+
+  - type: input
+    id: related_issues
+    attributes:
+      label: "Related Issues"
+      placeholder: "e.g. #12 (introduced by), #34 (blocked by this)"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 3 — DEFECT DESCRIPTION
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🐛 Defect Description
+
+  - type: dropdown
+    id: affected_component
+    attributes:
+      label: "Affected Component"
+      description: "Primary component where the defect manifests."
+      options:
+        - "C++ TCP Server (eop-server)"
+        - "C Client Library (libeop)"
+        - "HPC Engine (eop-hpc)"
+        - "Go API Gateway (api-gateway)"
+        - "Edge Firmware (ZephyrOS / ESP32)"
+        - "Edge Ingestor (edge-ingestor)"
+        - "Observability Stack (OTel / SigNoz / Grafana / Loki)"
+        - "Kubernetes Manifests / Docker"
+        - "CI / CD Pipeline"
+        - "Protocol / ADR compliance"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary ✅"
+      description: "Describe the defect in 2–5 lines: what breaks, when, and what the impact is."
+      placeholder: "The C++ server crashes with SIGSEGV when a second client connects while the first client is mid-registration. The shared node registry mutex is not held during the initial check, causing a data race. Violates US-102 AC-6 (ThreadSanitizer must report zero data races)."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce ✅"
+      description: "Provide a clear, minimal, reproducible scenario. Include build flags and commands."
+      placeholder: |
+        1. Build with: `cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TSAN=ON ..`
+        2. Start the server: `./eop-server`
+        3. Connect client A: `./eop-client --host localhost --port 9026`
+        4. Immediately connect client B before A completes REGISTER
+        5. Observe: server crashes with SIGSEGV
+        6. ThreadSanitizer output: `DATA RACE in NodeRegistry::insert`
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior ✅"
+      description: "What should have happened according to the requirement or ADR?"
+      placeholder: "Both clients complete registration successfully. ThreadSanitizer reports zero data races. Server logs show two separate REGISTER spans in SigNoz."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "Actual Behavior ✅"
+      description: "What actually happened? Be precise."
+      placeholder: "Server crashes with SIGSEGV. ThreadSanitizer reports: `WARNING: ThreadSanitizer: data race in NodeRegistry::insert at node_registry.cpp:47`."
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 4 — EVIDENCE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🔬 Evidence & Diagnostics
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "Evidence"
+      description: "Paste sanitizer output, stack traces, CI logs, OTel trace IDs, Grafana screenshots, or Valgrind reports."
+      placeholder: |
+        === ThreadSanitizer output ===
+        WARNING: ThreadSanitizer: data race (pid=12345)
+          Write of size 8 at 0x7f... by thread T2:
+            #0 NodeRegistry::insert(...) node_registry.cpp:47
+          Previous read of size 8 at 0x7f... by thread T1:
+            #0 NodeRegistry::find(...) node_registry.cpp:31
+        ...
+
+        === CI link ===
+        https://github.com/org/repo/actions/runs/XXXXXXX
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment ✅"
+      description: "OS, compiler, build type, and active sanitizers."
+      placeholder: |
+        OS:        Ubuntu 24.04 LTS
+        Compiler:  clang++ 18.1.3
+        Build:     Debug
+        Sanitizers: TSan
+        K8s:       minikube v1.32 (if applicable)
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 5 — ROOT CAUSE & FIX PLAN
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🔧 Root Cause Analysis & Fix Plan
+        > Complete this section when the root cause is identified (can be updated after initial report).
+
+  - type: textarea
+    id: root_cause
+    attributes:
+      label: "Root Cause"
+      description: "What is the underlying cause of this defect? Reference code locations if known."
+      placeholder: |
+        The `NodeRegistry::insert()` method checks for duplicate node_id and then inserts, but the mutex
+        is only acquired inside `insert()`, not across the check-then-act sequence.
+        This creates a TOCTOU race: two threads can both pass the duplicate check and then both attempt insertion.
+        File: src/node_registry.cpp:44–52
+    validations:
+      required: false
+
+  - type: textarea
+    id: fix_plan
+    attributes:
+      label: "Fix Plan"
+      description: "How will the defect be fixed? What tests will be added or updated?"
+      placeholder: |
+        1. Hold the registry mutex across the entire check-then-insert sequence.
+        2. Add a concurrent registration test: 100 threads simultaneously registering the same node_id — only one must succeed.
+        3. Verify TSan reports zero races on the full concurrent client test suite (US-102 AC-6, AC-8).
+    validations:
+      required: false
+
+  - type: textarea
+    id: scope_impact
+    attributes:
+      label: "Scope & Impact"
+      description: "Which other components, requirements, or squads are affected by this defect or its fix?"
+      placeholder: |
+        Affects: US-102 (concurrent clients), US-103 (node registration), US-104 (disconnection detection).
+        Fix may change NodeRegistry API — notify dependent squads before merging.
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 6 — FIX DELIVERABLES & DOD
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📦 Fix Deliverables Checklist
+
+  - type: checkboxes
+    id: fix_checklist
+    attributes:
+      label: "Fix Quality Gates"
+      options:
+        - label: "Root cause documented in this issue before fix is started"
+          required: false
+        - label: "Fix is on branch: `fix/<issue-number_short-description>`"
+          required: false
+        - label: "A regression test is added that reproduces the original defect and passes with the fix"
+          required: false
+        - label: "AddressSanitizer / Valgrind: zero errors after fix"
+          required: false
+        - label: "ThreadSanitizer: zero data races after fix (if concurrency is involved)"
+          required: false
+        - label: "clang-tidy: zero new warnings introduced"
+          required: false
+        - label: "CI pipeline is fully green (build + test + lint + sanitizers)"
+          required: false
+        - label: "At least one peer review approved (reviewer ≠ author)"
+          required: false
+        - label: "`CHANGELOG.md` entry added (bug fix — patch version)"
+          required: false
+        - label: "All commits are GPG-signed and follow Conventional Commits"
+          required: false
+
+  - type: checkboxes
+    id: dod
+    attributes:
+      label: "✅ Definition of Done"
+      description: "This defect is Done ONLY when every item below is checked."
+      options:
+        - label: "Fix is merged to release branch with CI fully green"
+          required: false
+        - label: "Root cause is documented in this issue"
+          required: false
+        - label: "Regression test added and passing"
+          required: false
+        - label: "No memory leaks or data races — verified by CI sanitizers"
+          required: false
+        - label: "Affected AC(s) in the parent US issue are re-verified"
+          required: false
+        - label: "`CHANGELOG.md` updated"
+          required: false
+
+  - type: checkboxes
+    id: submission_checklist
+    attributes:
+      label: "Reporter Checklist"
+      options:
+        - label: "I searched for existing issues and confirmed this is not a duplicate."
+          required: true
+        - label: "I included reproducible steps."
+          required: true
+        - label: "I described expected and actual behavior precisely."
+          required: true
+        - label: "All mandatory fields (Team, Milestone, Priority, Size, Estimated Days, Target Date, Branch/Commit) are filled."
+          required: true
