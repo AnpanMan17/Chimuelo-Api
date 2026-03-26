@@ -1,0 +1,477 @@
+name: "🔴 M0 — Product Discovery"
+description: "Exclusive template for M0 tasks: ADR documentation, architectural baseline, and Proto Freeze gate preparation. No M1 implementation begins without M0 closed."
+title: "[M0] ADR-XXX · "
+labels: ["m0-discovery", "adr", "needs-triage"]
+assignees: []
+body:
+
+  # ─────────────────────────────────────────────────────────────────────
+  # CRITICAL NOTICE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        > ### 🔴 M0 — Critical Foundational Milestone
+        > M0 failures **cascade into every subsequent milestone**. A missing ADR, an incomplete protocol definition, or undefined service boundaries will block M1 implementation for **all four squads**.
+        >
+        > **Proto Freeze gate:** End of Week 2 — Protocol v1.0 documented and signed off by all four squads.
+        > **No squad advances to M1 without passing this gate. There are no exceptions.**
+        >
+        > Engineering Contract — Design Phase (30%):
+        > - Exit gate: ADRs approved, interfaces defined, protocol negotiated.
+        > - Mandatory artifacts: ADR docs in `/docs/adr/`, sequence diagram of the protocol.
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 1 — METADATA
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: "## 📌 Issue Metadata"
+
+  - type: dropdown
+    id: team
+    attributes:
+      label: "Team ✅"
+      description: "Squad responsible. For cross-squad ADRs (ADR-001, ADR-003, ADR-005, ADR-006), select the squad leading the document — co-authors are listed in Notes."
+      options:
+        - Catalyst
+        - Hyperion
+        - Nexus
+        - Orion
+        - "All Squads (cross-squad ADR — lead squad set in Notes)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: m0_task_type
+    attributes:
+      label: "M0 Task Type ✅"
+      description: "Specific category of M0 work."
+      options:
+        - "ADR-001 — IPC Mechanism (BSD Sockets)"
+        - "ADR-002 — Server Concurrency Model (per-squad)"
+        - "ADR-003 — Message Protocol Design (Proto Negotiation)"
+        - "ADR-004 — Service Boundaries (per-squad)"
+        - "ADR-005 — Observability Strategy"
+        - "ADR-006 — Containerization & Kubernetes Adoption"
+        - "Proto Negotiation Meeting — Preparation"
+        - "Proto Negotiation Meeting — Deliverables"
+        - "Proto Freeze — Gate Verification"
+        - "M0 → M1 Transition Readiness"
+        - "Other M0 Design / Requirements Work"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority ✅"
+      description: "All M0 ADRs that block Proto Freeze should be Urgent or High."
+      options:
+        - "Urgent — Must be resolved immediately"
+        - "High — Direct impact on project progression"
+        - "Medium — Important, does not block progress"
+        - "Low — Minor or non-urgent improvement"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: "Size ✅"
+      options:
+        - "XS — < 1 day"
+        - "S — 1–2 days"
+        - "M — 3–5 days"
+        - "L — 6–10 days"
+        - "XL — > 10 days"
+    validations:
+      required: true
+
+  - type: input
+    id: estimated_days
+    attributes:
+      label: "Estimated Days ✅"
+      placeholder: "e.g. 2"
+    validations:
+      required: true
+
+  - type: input
+    id: target_date
+    attributes:
+      label: "Target Date ✅"
+      description: "Must be on or before End of Week 2 for all Proto Freeze blocking items."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notes"
+      description: "Co-authors (for cross-squad ADRs), escalation flags, or risk notes."
+      placeholder: "Co-authors: @catalyst-lead, @hyperion-lead, @nexus-lead, @orion-lead. Risk: squads may disagree on payload encoding — alignment meeting scheduled Week 1 Day 3."
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 2 — ADR IDENTIFICATION
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📐 ADR Identification
+
+  - type: input
+    id: adr_id
+    attributes:
+      label: "ADR Number"
+      description: "e.g. ADR-002. New ADRs are assigned sequentially."
+      placeholder: "ADR-00X"
+    validations:
+      required: false
+
+  - type: input
+    id: adr_title
+    attributes:
+      label: "ADR Title"
+      description: "Short, descriptive title. Used as the filename: `/docs/adr/ADR-00X-<kebab-title>.md`"
+      placeholder: "e.g. Server Concurrency Model"
+    validations:
+      required: false
+
+  - type: input
+    id: adr_file_path
+    attributes:
+      label: "ADR File Path"
+      description: "Target path in the repository."
+      placeholder: "/docs/adr/ADR-002-concurrency-model.md"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: adr_scope
+    attributes:
+      label: "ADR Scope"
+      description: "Does this ADR apply to one squad or all squads?"
+      options:
+        - "Per-squad — each squad documents their own instance (ADR-002, ADR-004)"
+        - "Cross-squad — single document, all squads are deciders (ADR-001, ADR-003, ADR-005, ADR-006)"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 3 — ADR CONTENT
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📄 ADR Content
+        > Fill in the sections relevant to the ADR being documented. Each field maps directly to the standard ADR structure. The complete document is committed to `/docs/adr/`.
+
+  - type: textarea
+    id: adr_context
+    attributes:
+      label: "Context"
+      description: "What is the situation that requires a decision? What are the forces at play (technical, business, team constraints)? Why must this be decided now?"
+      placeholder: |
+        The EOP C++ server must support a minimum of 10 concurrent clients (NFR-1).
+        When a client sends a message, the server must process it without blocking other connected clients.
+        Three primary concurrency models are available: thread-per-connection, thread pool, and I/O multiplexing (epoll).
+        The choice affects: memory footprint per client, maximum concurrent connections, implementation complexity,
+        and exposure to synchronization primitives.
+    validations:
+      required: false
+
+  - type: textarea
+    id: adr_decision
+    attributes:
+      label: "Decision"
+      description: "What was decided? State the chosen option clearly and completely."
+      placeholder: |
+        We will use a thread-per-connection model.
+        One OS thread is created per accepted client connection.
+        The thread handles all communication for that client and exits when the connection closes.
+        Synchronization primitives used: mutex for the shared node registry, condition variable for graceful shutdown.
+    validations:
+      required: false
+
+  - type: textarea
+    id: adr_alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "What other options were evaluated? Why were they rejected?"
+      placeholder: |
+        | Alternative         | Reason Rejected                                                                 |
+        |---------------------|---------------------------------------------------------------------------------|
+        | Thread pool         | Higher complexity for a bounded client count. Overkill for NFR-1 (≥10 clients).|
+        | epoll (async I/O)   | Highest implementation complexity. Requires explicit per-connection state machines. |
+    validations:
+      required: false
+
+  - type: textarea
+    id: adr_consequences
+    attributes:
+      label: "Consequences"
+      description: "What are the positive and negative consequences of this decision? What constraints does it introduce?"
+      placeholder: |
+        Positive:
+        - Simple implementation: each thread handles one client serially, no explicit per-client sync needed.
+        - Clear failure isolation: a misbehaving client only affects its own thread.
+
+        Negative:
+        - Stack memory per thread (~2–8 MB). 100 clients = 200–800 MB.
+        - Scalability ceiling: not suitable for > 100 concurrent connections.
+
+        Constraints:
+        - Shared node registry requires a mutex. All access to the registry is guarded.
+        - Max practical client limit is 100 — documented in README.
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 4 — PROTO NEGOTIATION (ADR-003 ONLY)
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🤝 Proto Negotiation Meeting
+        > Complete this section **only** for ADR-003 tasks or Proto Negotiation Meeting issues.
+        > Each squad prepares the items below before the meeting. The meeting produces the items in the second checklist.
+
+  - type: textarea
+    id: proto_ops_expose
+    attributes:
+      label: "Operations This Service Exposes"
+      description: "List the message types (verbs), payloads, and expected responses this squad's service will handle as a server."
+      placeholder: |
+        | Message Type   | Direction       | Payload Fields                              | Response         |
+        |----------------|-----------------|---------------------------------------------|------------------|
+        | REGISTER       | Client → Server | node_id, bunker_name, ip_address, capacity  | ACK with node_id |
+        | QUERY_NODE     | Client → Server | node_id                                     | ACK with metadata or ERROR_NOT_FOUND |
+        | LIST_NODES     | Client → Server | (none)                                      | ACK with node array |
+        | HEARTBEAT      | Client → Server | node_id                                     | (no response required) |
+    validations:
+      required: false
+
+  - type: textarea
+    id: proto_ops_consume
+    attributes:
+      label: "Operations This Service Consumes"
+      description: "List the message types this squad's service sends to other squads' services as a client."
+      placeholder: |
+        | Message Type    | Target Squad / Service | Purpose                              |
+        |-----------------|------------------------|--------------------------------------|
+        | ANALYZE_GRAPH   | HPC Engine (M2)        | Dispatch graph analysis request      |
+    validations:
+      required: false
+
+  - type: textarea
+    id: proto_format_proposal
+    attributes:
+      label: "Proposed Message Format"
+      description: "Framing strategy (length-prefix or delimiter), field types, and payload encoding (binary / JSON / custom) with trade-off rationale."
+      placeholder: |
+        Framing: Length-prefix — 4-byte big-endian integer header preceding each message.
+        Rationale: Deterministic, handles binary payloads, no delimiter escaping needed.
+
+        Encoding: JSON
+        Rationale: Human-readable, easy to debug with netcat/Wireshark, sufficient for v0.1 throughput requirements.
+
+        Envelope (mandatory fields on every message):
+          message_id:       uint32 — unique identifier, used for deduplication and request-response correlation
+          message_type:     string enum — identifies the operation (REGISTER, ACK, ERROR, ...)
+          protocol_version: uint8  — value = 1 for v0.1
+          payload_length:   uint32 — length of payload in bytes, 0 if no payload
+          payload:          bytes  — message-type-specific data
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: proto_squad_prep
+    attributes:
+      label: "Squad Preparation Checklist (complete before the Proto Negotiation Meeting)"
+      options:
+        - label: "List of operations to expose is documented above"
+          required: false
+        - label: "List of operations to consume is documented above"
+          required: false
+        - label: "Proposed message format (framing, encoding) is documented above with trade-off rationale"
+          required: false
+        - label: "Draft ADR-004 (Service Boundaries) is written — what this service does, does NOT do, and what guarantees it provides"
+          required: false
+
+  - type: checkboxes
+    id: proto_meeting_deliverables
+    attributes:
+      label: "Meeting Deliverables Checklist (produced collectively — all four squads)"
+      options:
+        - label: "Protocol v1.0 signed off by all four squads (Catalyst, Hyperion, Nexus, Orion)"
+          required: false
+        - label: "Ownership table documented: which squad implements which side of each channel"
+          required: false
+        - label: "Compatibility criteria agreed: breaking vs. non-breaking change definitions"
+          required: false
+        - label: "Proto Freeze date set — after this date, breaking changes require explicit versioning and re-negotiation"
+          required: false
+        - label: "Protocol v1.0 document committed to `/docs/adr/ADR-003-message-protocol.md`"
+          required: false
+        - label: "Sequence diagram of the protocol committed to `/docs/design/`"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 5 — PROTO FREEZE GATE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🔒 Proto Freeze Gate Verification
+        > Complete this section for the **Proto Freeze Gate** issue (End of Week 2).
+        > Completed by the PL + all squad leads. Gate does not pass until every item is checked.
+
+  - type: checkboxes
+    id: proto_freeze_verification
+    attributes:
+      label: "Proto Freeze Gate — Required Before Any M1 Implementation"
+      options:
+        - label: "ADR-001 (IPC / BSD Sockets): Accepted — stored in `/docs/adr/ADR-001-ipc-mechanism.md`"
+          required: false
+        - label: "ADR-002 (Concurrency Model): All squads have their per-squad instance in Accepted status"
+          required: false
+        - label: "ADR-003 (Message Protocol): All required fields populated — framing, message envelope, payload encoding, all minimum message types (REGISTER, ACK, ERROR, QUERY_NODE, LIST_NODES, HEARTBEAT), versioning policy"
+          required: false
+        - label: "ADR-003 signed off explicitly by all four squads — sign-off recorded in the document"
+          required: false
+        - label: "ADR-004 (Service Boundaries): All squads have their per-squad instance in Accepted status"
+          required: false
+        - label: "ADR-005 (Observability): Accepted — OTel instrumentation plan, structured log format, and span requirements documented"
+          required: false
+        - label: "ADR-006 (Containerization): Accepted — multi-stage Dockerfile plan, K8s manifest requirements, and local dev stack documented"
+          required: false
+        - label: "Interoperability test plan exists: a client from Squad A can connect to the server of Squad B using only ADR-003"
+          required: false
+        - label: "No breaking protocol changes are pending in any squad's repository"
+          required: false
+        - label: "ADR-003 is the single authoritative source — no undocumented protocol variants exist"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 6 — M0 → M1 TRANSITION READINESS
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🧩 M0 → M1 Transition Readiness
+        > A squad may only begin M1 implementation tasks after every item below is verified.
+        > This is enforced at the Proto Freeze gate. No exceptions.
+
+  - type: checkboxes
+    id: transition_readiness
+    attributes:
+      label: "Transition Readiness — This Squad"
+      options:
+        - label: "ADR-001 through ADR-006 all in `Accepted` status and stored in `/docs/adr/`"
+          required: false
+        - label: "ADR-003 (Protocol v1.0) is signed off by all four squads"
+          required: false
+        - label: "ADR-004 (Service Boundaries) is complete and unambiguous to all other squads"
+          required: false
+        - label: "Squad `README.md` references all relevant ADRs with direct links"
+          required: false
+        - label: "No M0 issues for this squad remain in `Triage`, `Backlog`, or `In Progress` state"
+          required: false
+        - label: "PL sign-off received for M0 → M1 transition"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 7 — RISK REGISTER
+  # ─────────────────────────────────────────────────────────────────────
+  - type: textarea
+    id: risk_register
+    attributes:
+      label: "⚠️ M0 Risk Register"
+      description: "Document any known risks that could block the Proto Freeze gate. Unresolved risks must be escalated to the PL before End of Week 1."
+      placeholder: |
+        | Risk                                                   | Impact | Mitigation                                          | Owner     | Status |
+        |--------------------------------------------------------|--------|-----------------------------------------------------|-----------|--------|
+        | Squads cannot agree on payload encoding (JSON vs binary) | High   | Schedule alignment session Day 3 Week 1              | @pl-lead  | Open   |
+        | ADR-004 not drafted before Proto Negotiation Meeting   | High   | Checkpoint review end of Week 1 Day 5               | Each squad | Open   |
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # DELIVERABLES & DOD
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📦 M0 Deliverables Checklist
+
+  - type: checkboxes
+    id: m0_deliverables
+    attributes:
+      label: "ADR Document Quality"
+      options:
+        - label: "ADR document follows standard structure: Title, Date, Status, Deciders, Context, Decision, Alternatives Considered, Consequences"
+          required: false
+        - label: "ADR is stored in `/docs/adr/` with correct filename (`ADR-00X-kebab-title.md`)"
+          required: false
+        - label: "ADR is linked from the squad `README.md`"
+          required: false
+        - label: "ADR status is set to `Accepted` (not Draft)"
+          required: false
+        - label: "For per-squad ADRs: each squad has their own instance — no shared document with squad-specific content missing"
+          required: false
+        - label: "For cross-squad ADRs: sign-off from all four squads is recorded in the document"
+          required: false
+
+  - type: checkboxes
+    id: m0_git
+    attributes:
+      label: "Git & CI"
+      options:
+        - label: "All commits are GPG-signed"
+          required: false
+        - label: "Each commit represents one logical change"
+          required: false
+        - label: "Commit messages follow Conventional Commits"
+          required: false
+        - label: "Branch name: `feature/<issue-number_adr-XXX-title>`"
+          required: false
+        - label: "At least one peer review approved (reviewer ≠ author)"
+          required: false
+
+  - type: checkboxes
+    id: m0_dod
+    attributes:
+      label: "✅ M0 Definition of Done"
+      description: "This M0 issue is Done ONLY when every item below is checked."
+      options:
+        - label: "ADR document is complete, in `Accepted` status, and merged to the release branch"
+          required: false
+        - label: "ADR is referenced from `README.md`"
+          required: false
+        - label "`CHANGELOG.md` entry added"
+          required: false
+        - label: "CI is green"
+          required: false
+        - label: "For Proto Freeze: PL and all squad leads have signed off"
+          required: false
+
+  - type: checkboxes
+    id: submission_checklist
+    attributes:
+      label: "Submission Checklist"
+      options:
+        - label: "I confirmed this is not a duplicate M0 / ADR issue."
+          required: true
+        - label: "All mandatory fields (Team, Task Type, Priority, Size, Estimated Days, Target Date) are filled."
+          required: true
+        - label: "Target Date is on or before End of Week 2 for any Proto Freeze blocking item."
+          required: true
