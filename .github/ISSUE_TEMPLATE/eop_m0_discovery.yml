@@ -4,10 +4,9 @@ title: "[M0] ADR-XXX · "
 labels: ["m0-discovery", "adr", "needs-triage"]
 assignees: []
 body:
-
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # CRITICAL NOTICE
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -21,9 +20,9 @@ body:
         > - Exit gate: ADRs approved, interfaces defined, protocol negotiated.
         > - Mandatory artifacts: ADR docs in `/docs/adr/`, sequence diagram of the protocol.
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 1 — METADATA
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: "## 📌 Issue Metadata"
@@ -114,9 +113,9 @@ body:
     validations:
       required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 2 — ADR IDENTIFICATION
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -161,9 +160,9 @@ body:
     validations:
       required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 3 — ADR CONTENT
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -204,10 +203,10 @@ body:
       label: "Alternatives Considered"
       description: "What other options were evaluated? Why were they rejected?"
       placeholder: |
-        | Alternative         | Reason Rejected                                                                 |
-        |---------------------|---------------------------------------------------------------------------------|
-        | Thread pool         | Higher complexity for a bounded client count. Overkill for NFR-1 (≥10 clients).|
-        | epoll (async I/O)   | Highest implementation complexity. Requires explicit per-connection state machines. |
+        | Alternative       | Reason Rejected                                                                  |
+        |-------------------|-----------------------------------------------------------------------------------|
+        | Thread pool       | Higher complexity for a bounded client count. Overkill for NFR-1 (≥10 clients). |
+        | epoll (async I/O) | Highest implementation complexity. Requires explicit per-connection state machines. |
     validations:
       required: false
 
@@ -231,9 +230,9 @@ body:
     validations:
       required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 4 — PROTO NEGOTIATION (ADR-003 ONLY)
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -248,12 +247,12 @@ body:
       label: "Operations This Service Exposes"
       description: "List the message types (verbs), payloads, and expected responses this squad's service will handle as a server."
       placeholder: |
-        | Message Type   | Direction       | Payload Fields                              | Response         |
-        |----------------|-----------------|---------------------------------------------|------------------|
-        | REGISTER       | Client → Server | node_id, bunker_name, ip_address, capacity  | ACK with node_id |
-        | QUERY_NODE     | Client → Server | node_id                                     | ACK with metadata or ERROR_NOT_FOUND |
-        | LIST_NODES     | Client → Server | (none)                                      | ACK with node array |
-        | HEARTBEAT      | Client → Server | node_id                                     | (no response required) |
+        | Message Type | Direction       | Payload Fields                             | Response                           |
+        |--------------|-----------------|--------------------------------------------|------------------------------------|
+        | REGISTER     | Client → Server | node_id, bunker_name, ip_address, capacity | ACK with node_id                   |
+        | QUERY_NODE   | Client → Server | node_id                                    | ACK with metadata or ERROR_NOT_FOUND |
+        | LIST_NODES   | Client → Server | (none)                                     | ACK with node array                |
+        | HEARTBEAT    | Client → Server | node_id                                    | (no response required)             |
     validations:
       required: false
 
@@ -263,9 +262,9 @@ body:
       label: "Operations This Service Consumes"
       description: "List the message types this squad's service sends to other squads' services as a client."
       placeholder: |
-        | Message Type    | Target Squad / Service | Purpose                              |
-        |-----------------|------------------------|--------------------------------------|
-        | ANALYZE_GRAPH   | HPC Engine (M2)        | Dispatch graph analysis request      |
+        | Message Type  | Target Squad / Service | Purpose                         |
+        |---------------|------------------------|---------------------------------|
+        | ANALYZE_GRAPH | HPC Engine (M2)        | Dispatch graph analysis request |
     validations:
       required: false
 
@@ -322,9 +321,9 @@ body:
         - label: "Sequence diagram of the protocol committed to `/docs/design/`"
           required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 5 — PROTO FREEZE GATE
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -359,9 +358,9 @@ body:
         - label: "ADR-003 is the single authoritative source — no undocumented protocol variants exist"
           required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 6 — M0 → M1 TRANSITION READINESS
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -388,25 +387,25 @@ body:
         - label: "PL sign-off received for M0 → M1 transition"
           required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # SECTION 7 — RISK REGISTER
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: textarea
     id: risk_register
     attributes:
       label: "⚠️ M0 Risk Register"
       description: "Document any known risks that could block the Proto Freeze gate. Unresolved risks must be escalated to the PL before End of Week 1."
       placeholder: |
-        | Risk                                                   | Impact | Mitigation                                          | Owner     | Status |
-        |--------------------------------------------------------|--------|-----------------------------------------------------|-----------|--------|
-        | Squads cannot agree on payload encoding (JSON vs binary) | High   | Schedule alignment session Day 3 Week 1              | @pl-lead  | Open   |
-        | ADR-004 not drafted before Proto Negotiation Meeting   | High   | Checkpoint review end of Week 1 Day 5               | Each squad | Open   |
+        | Risk                                                      | Impact | Mitigation                               | Owner      | Status |
+        |-----------------------------------------------------------|--------|------------------------------------------|------------|--------|
+        | Squads cannot agree on payload encoding (JSON vs binary) | High   | Schedule alignment session Day 3 Week 1 | @pl-lead   | Open   |
+        | ADR-004 not drafted before Proto Negotiation Meeting     | High   | Checkpoint review end of Week 1 Day 5   | Each squad | Open   |
     validations:
       required: false
 
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   # DELIVERABLES & DOD
-  # ─────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
@@ -457,7 +456,7 @@ body:
           required: false
         - label: "ADR is referenced from `README.md`"
           required: false
-        - label "`CHANGELOG.md` entry added"
+        - label: "`CHANGELOG.md` entry added"
           required: false
         - label: "CI is green"
           required: false
