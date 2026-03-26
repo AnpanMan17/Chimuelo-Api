@@ -1,8 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: GitHub Community Support
-    url: https://github.com/orgs/community/discussions
-    about: Please ask and answer questions here.
-  - name: GitHub Security Bug Bounty
-    url: https://bounty.github.com/
-    about: Please report security vulnerabilities here.
+  - name: "📖 EOP Engineering Board"
+    url: https://github.com/orgs/ExodusSystems/projects/1
+    about: "Track all active EOP issues on the centralized execution board (single source of truth)."
+  - name: "📐 ADR Index — /docs/adr/"
+    url: https://github.com/ExodusSystems/exodus-ops-platform/tree/main/docs/adr
+    about: "All Architecture Decision Records for EOP. Review before opening ADR-related issues."
+  - name: "💬 Questions & Team Discussion"
+    url: https://github.com/ExodusSystems/exodus-ops-platform/discussions
+    about: "Use Discussions for non-actionable questions, design exploration, and inter-squad coordination. Do NOT open issues for questions."
+  - name: "📄 SWAgreement — Engineering Standards"
+    url: https://github.com/ExodusSystems/exodus-ops-platform/blob/main/docs/SWAgreement.pdf
+    about: "Binding engineering standards for all EOP work. Read before contributing."
