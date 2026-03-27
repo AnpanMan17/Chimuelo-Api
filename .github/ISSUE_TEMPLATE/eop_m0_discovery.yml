@@ -157,6 +157,7 @@ body:
       options:
         - "Per-squad — each squad documents their own instance (ADR-002, ADR-004)"
         - "Cross-squad — single document, all squads are deciders (ADR-001, ADR-003, ADR-005, ADR-006)"
+        - "Mixed-squad — ADR-001/003/005/006 cross-squad; ADR-002/004 per-squad"
     validations:
       required: false
 
@@ -203,9 +204,9 @@ body:
       label: "Alternatives Considered"
       description: "What other options were evaluated? Why were they rejected?"
       placeholder: |
-        | Alternative       | Reason Rejected                                                                  |
-        |-------------------|-----------------------------------------------------------------------------------|
-        | Thread pool       | Higher complexity for a bounded client count. Overkill for NFR-1 (≥10 clients). |
+        | Alternative       | Reason Rejected                                                                     |
+        |-------------------|-------------------------------------------------------------------------------------|
+        | Thread pool       | Higher complexity for a bounded client count. Overkill for NFR-1 (≥10 clients).     |
         | epoll (async I/O) | Highest implementation complexity. Requires explicit per-connection state machines. |
     validations:
       required: false
@@ -247,12 +248,12 @@ body:
       label: "Operations This Service Exposes"
       description: "List the message types (verbs), payloads, and expected responses this squad's service will handle as a server."
       placeholder: |
-        | Message Type | Direction       | Payload Fields                             | Response                           |
-        |--------------|-----------------|--------------------------------------------|------------------------------------|
-        | REGISTER     | Client → Server | node_id, bunker_name, ip_address, capacity | ACK with node_id                   |
+        | Message Type | Direction       | Payload Fields                             | Response                             |
+        |--------------|-----------------|--------------------------------------------|--------------------------------------|
+        | REGISTER     | Client → Server | node_id, bunker_name, ip_address, capacity | ACK with node_id                     |
         | QUERY_NODE   | Client → Server | node_id                                    | ACK with metadata or ERROR_NOT_FOUND |
-        | LIST_NODES   | Client → Server | (none)                                     | ACK with node array                |
-        | HEARTBEAT    | Client → Server | node_id                                    | (no response required)             |
+        | LIST_NODES   | Client → Server | (none)                                     | ACK with node array                  |
+        | HEARTBEAT    | Client → Server | node_id                                    | (no response required)               |
     validations:
       required: false
 
@@ -396,8 +397,8 @@ body:
       label: "⚠️ M0 Risk Register"
       description: "Document any known risks that could block the Proto Freeze gate. Unresolved risks must be escalated to the PL before End of Week 1."
       placeholder: |
-        | Risk                                                      | Impact | Mitigation                               | Owner      | Status |
-        |-----------------------------------------------------------|--------|------------------------------------------|------------|--------|
+        | Risk                                                     | Impact | Mitigation                              | Owner      | Status |
+        |----------------------------------------------------------|--------|-----------------------------------------|------------|--------|
         | Squads cannot agree on payload encoding (JSON vs binary) | High   | Schedule alignment session Day 3 Week 1 | @pl-lead   | Open   |
         | ADR-004 not drafted before Proto Negotiation Meeting     | High   | Checkpoint review end of Week 1 Day 5   | Each squad | Open   |
     validations:
