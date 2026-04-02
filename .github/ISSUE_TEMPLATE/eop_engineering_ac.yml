@@ -140,24 +140,6 @@ body:
       placeholder: "e.g. ADR-001, ADR-003"
     validations:
       required: false
-
-  # ─────────────────────────────────────────────────────────────────────
-  # SECTION 3 — ACCEPTANCE CRITERION
-  # ─────────────────────────────────────────────────────────────────────
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        ## ✅ Acceptance Criterion
-
-  - type: textarea
-    id: description
-    attributes:
-      label: "Description ✅"
-      description: "Describe what must be done to satisfy this acceptance criterion. Be specific, measurable, and testable."
-      placeholder: "The server logs each new connection with: timestamp, client IP, assigned session ID, and total active connections count"
-    validations:
-      required: true
       
   # ─────────────────────────────────────────────────────────────────────
   # SECTION 5 — TESTING REQUIREMENTS
