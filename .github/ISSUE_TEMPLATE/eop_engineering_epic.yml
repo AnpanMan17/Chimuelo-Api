@@ -159,9 +159,9 @@ body:
       label: "Story"
       description: "Complete the user story narrative."
       placeholder: |
-        As a <persona>,
-        I want to <action / capability>,
-        So that <business value / outcome>.
+        - #US-1XX
+        - #US-1XX
+        - #US-1XX
     validations:
       required: true
 
