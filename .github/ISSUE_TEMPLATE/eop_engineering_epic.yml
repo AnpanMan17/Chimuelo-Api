@@ -2,7 +2,6 @@ name: "⚙️ EOP Engineering Task"
 description: "Standard engineering task for EOP product work — US stories, epics, implementation, and integration items (M1–M4)."
 title: "[EPIC EX]->[US-XXX]->[ACX]"
 labels: ["epic"]
-types: ["Epic"]
 assignees: []
 body:
 
