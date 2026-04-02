@@ -2,7 +2,6 @@ name: "📖 EOP User Story"
 description: "User Story for EOP product work — defines a feature from the user's perspective as part of an Epic."
 title: "US-1XX Lorem ipsum"
 labels: ["feature"]
-types: ["Feature"]
 assignees: []
 body:
 
