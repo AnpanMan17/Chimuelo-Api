@@ -66,7 +66,7 @@ body:
   - type: textarea
     id: scope_in
     attributes:
-      label: "What this User Story DOES ✅"
+      label: "What this Acceptance Criteria DOES ✅"
       description: "One paragraph. Specific about the deliverable. What will exist after this User Story is Done that did not exist before?"
       placeholder: "Implements the TCP server accept loop and welcome handshake. Delivers a binary that listens on EOP_PORT, accepts connections, sends a welcome message with server version / timestamp / session ID, and handles clean disconnection."
     validations:
