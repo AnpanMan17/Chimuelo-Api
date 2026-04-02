@@ -204,6 +204,10 @@ body:
     attributes:
       label: "What this issue DOES"
       description: "One paragraph. Specific about the deliverable. What will exist after this issue is Done that did not exist before?"
+      placeholder: |
+        - [ ] US-1XX
+        - [ ] US-1XX
+        - [ ] US-1XX
     validations:
       required: true
 
