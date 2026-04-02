@@ -1,0 +1,289 @@
+name: "📖 EOP User Story"
+description: "User Story for EOP product work — defines a feature from the user's perspective as part of an Epic."
+title: "US-1XX Lorem ipsum"
+labels: ["feature"]
+types: ["Feature"]
+assignees: []
+body:
+
+  # ─────────────────────────────────────────────────────────────────────
+  # BINDING NOTICE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        > **⚠️ Binding Contract Notice**
+        > Adding this issue to the EOP board implies it is part of the **product scope**, will be **evaluated under engineering criteria**, and must comply with all standards defined in the SWAgreement.
+        > Issues with missing mandatory fields are **INCOMPLETE** and excluded from evaluation.
+        >
+        > Workflow: `Triage → Backlog → In Progress → Pending Review → In Review → On Hold → Pending Final Review → In Final Review → Done`
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 1 — METADATA
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: "## 📌 Issue Metadata"
+
+  - type: dropdown
+    id: team
+    attributes:
+      label: "Team ✅"
+      description: "Squad responsible for this issue. No shared ownership — one squad owns it end-to-end."
+      options:
+        - Catalyst
+        - Hyperion
+        - Nexus
+        - Orion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: "Milestone ✅"
+      description: "Product milestone this issue belongs to. Milestones represent capability evolution, not academic phases."
+      options:
+        - "M1 — Core Communication Layer"
+        - "M2 — Processing Capability"
+        - "M3 — Product API & Integration"
+        - "M4 — Edge & IoT Integration"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority ✅"
+      description: "Impact level on product progression."
+      options:
+        - "Urgent — Must be resolved immediately"
+        - "High — Direct impact on project progression"
+        - "Medium — Important, does not block progress"
+        - "Low — Minor or non-urgent improvement"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: "Size ✅"
+      description: "Effort estimation."
+      options:
+        - "XS — < 1 day"
+        - "S — 1–2 days"
+        - "M — 3–5 days"
+        - "L — 6–10 days"
+        - "XL — > 10 days"
+    validations:
+      required: true
+
+  - type: input
+    id: estimated_days
+    attributes:
+      label: "Estimated Days ✅"
+      description: "Numeric estimate in working days."
+      placeholder: "e.g. 3"
+    validations:
+      required: true
+
+  - type: input
+    id: target_date
+    attributes:
+      label: "Target Date ✅"
+      description: "Expected completion date."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: input
+    id: branch
+    attributes:
+      label: "Branch Name"
+      description: "Branch must follow naming schema or it will be rejected without review."
+      placeholder: "feature/<issue-number_short-description>  or  fix/<issue-number_short-description>"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 2 — TRACEABILITY
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🏷️ Traceability
+        > Every feature must trace to a documented requirement and its parent epic.
+
+  - type: input
+    id: epic_reference
+    attributes:
+      label: "Epic Reference ✅"
+      description: "Parent epic this User Story belongs to."
+      placeholder: "e.g. Epic E1 — C++ TCP Server  /  Epic E5 — Parallel HPC Engine"
+    validations:
+      required: true
+
+  - type: input
+    id: requirement_id
+    attributes:
+      label: "Requirement ID"
+      description: "US or NFR identifier from PRD-EOP-2077-001."
+      placeholder: "e.g. US-101  /  NFR-1  /  US-203"
+    validations:
+      required: false
+
+  - type: input
+    id: adr_reference
+    attributes:
+      label: "ADR Reference"
+      description: "ADR(s) that govern this work. Stored in /docs/adr/."
+      placeholder: "e.g. ADR-001, ADR-003"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 3 — USER STORY
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📖 User Story
+
+  - type: dropdown
+    id: persona
+    attributes:
+      label: "Persona ✅"
+      description: "Who is the primary beneficiary of this work?"
+      options:
+        - "Vault Operator — operations engineer, manages bunkers from terminal"
+        - "Network Analyst — processes large-scale network topologies"
+        - "Integration Engineer — connects external services to EOP via API"
+        - "Edge Device — ESP32 / ZephyrOS in remote bunkers"
+        - "Internal — no external persona (infrastructure, tooling, observability)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: "Story ✅"
+      description: "Complete the user story narrative."
+      placeholder: |
+        **As a** <persona>,
+        **I want to** <action / capability>,
+        **So that** <business value / outcome>.
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 4 — ACCEPTANCE CRITERIA
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## ✅ Acceptance Criteria
+        > List all acceptance criteria as task list items. These will be converted to sub-issues.
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria ✅"
+      description: "List the acceptance criteria using the task list format. Each item should be specific, measurable, and testable."
+      placeholder: |
+        ### Acceptance Criteria:
+        
+        - [ ] AC1. Lorem ipsum
+        - [ ] AC2. Lorem ipsum
+        - [ ] AC3. Lorem ipsum
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 5 — TECHNICAL SCOPE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## ⚙️ Technical Scope
+
+  - type: textarea
+    id: scope_in
+    attributes:
+      label: "What this User Story DOES ✅"
+      description: "One paragraph. Specific about the deliverable. What will exist after this User Story is Done that did not exist before?"
+      placeholder: "Implements the TCP server accept loop and welcome handshake. Delivers a binary that listens on EOP_PORT, accepts connections, sends a welcome message with server version / timestamp / session ID, and handles clean disconnection."
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "Dependencies"
+      description: "Which squads, services, ADRs, or issues does this depend on? What behavior is assumed from them?"
+      placeholder: |
+        - ADR-003 (Protocol v1.0) must be Accepted before implementation begins.
+        - Depends on ADR-002 (Concurrency Model) being finalized by this squad.
+        - Squad Hyperion's client library (US-105) is a consumer — no direct dependency here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notes"
+      description: "Optional context, external dependencies, risk flags, or relevant links."
+      placeholder: "e.g. Depends on ADR-003 being finalized. Blocking US-104."
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 6 — DEFINITION OF DONE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📦 Definition of Done
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: "✅ Definition of Done"
+      description: "This User Story is Done ONLY when every item below is checked."
+      options:
+        - label: "All Acceptance Criteria sub-issues are Done"
+          required: false
+        - label: "Code is merged to release branch with CI fully green"
+          required: false
+        - label: "Every acceptance criterion is verifiable with an automated test or a reproducible demo"
+          required: false
+        - label: "If an architectural decision was made, the corresponding ADR is documented in `/docs/adr/`"
+          required: false
+        - label: "`README.md` reflects the current state: build, run locally, test suite"
+          required: false
+        - label: "`CHANGELOG.md` updated with a meaningful entry"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SUBMISSION CHECKLIST
+  # ─────────────────────────────────────────────────────────────────────
+  - type: checkboxes
+    id: submission_checklist
+    attributes:
+      label: "Submission Checklist"
+      description: "Confirm before opening this issue."
+      options:
+        - label: "I searched for existing issues and confirmed this is not a duplicate."
+          required: true
+        - label: "All mandatory fields (Team, Milestone, Priority, Size, Estimated Days, Target Date, Epic Reference) are filled."
+          required: true
+        - label: "The user story follows the **As a** / **I want to** / **So that** format."
+          required: true
+        - label: "Acceptance criteria are listed as task items and are measurable and testable."
+          required: true
+        - label: "Technical scope (DOES) is explicitly defined."
+          required: true

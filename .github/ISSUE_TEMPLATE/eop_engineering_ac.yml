@@ -1,0 +1,356 @@
+name: "✅ EOP Acceptance Criterion"
+description: "Acceptance Criterion — a specific, testable condition that must be met for a User Story to be considered complete."
+title: "ACx. Lorem ipsum"
+labels: ["task"]
+types: ["Task"]
+assignees: []
+body:
+
+  # ─────────────────────────────────────────────────────────────────────
+  # BINDING NOTICE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        > **⚠️ Binding Contract Notice**
+        > Adding this issue to the EOP board implies it is part of the **product scope**, will be **evaluated under engineering criteria**, and must comply with all standards defined in the SWAgreement.
+        > Issues with missing mandatory fields are **INCOMPLETE** and excluded from evaluation.
+        >
+        > Workflow: `Triage → Backlog → In Progress → Pending Review → In Review → On Hold → Pending Final Review → In Final Review → Done`
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 1 — METADATA
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: "## 📌 Issue Metadata"
+
+  - type: dropdown
+    id: team
+    attributes:
+      label: "Team ✅"
+      description: "Squad responsible for this issue. No shared ownership — one squad owns it end-to-end."
+      options:
+        - Catalyst
+        - Hyperion
+        - Nexus
+        - Orion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: "Milestone ✅"
+      description: "Product milestone this issue belongs to. Milestones represent capability evolution, not academic phases."
+      options:
+        - "M1 — Core Communication Layer"
+        - "M2 — Processing Capability"
+        - "M3 — Product API & Integration"
+        - "M4 — Edge & IoT Integration"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority ✅"
+      description: "Impact level on product progression."
+      options:
+        - "Urgent — Must be resolved immediately"
+        - "High — Direct impact on project progression"
+        - "Medium — Important, does not block progress"
+        - "Low — Minor or non-urgent improvement"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: "Size ✅"
+      description: "Effort estimation."
+      options:
+        - "XS — < 1 day"
+        - "S — 1–2 days"
+        - "M — 3–5 days"
+        - "L — 6–10 days"
+        - "XL — > 10 days"
+    validations:
+      required: true
+
+  - type: input
+    id: estimated_days
+    attributes:
+      label: "Estimated Days ✅"
+      description: "Numeric estimate in working days."
+      placeholder: "e.g. 1"
+    validations:
+      required: true
+
+  - type: input
+    id: target_date
+    attributes:
+      label: "Target Date ✅"
+      description: "Expected completion date."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: input
+    id: branch
+    attributes:
+      label: "Branch Name"
+      description: "Branch must follow naming schema or it will be rejected without review."
+      placeholder: "feature/<issue-number_short-description>  or  fix/<issue-number_short-description>"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 2 — TRACEABILITY
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🏷️ Traceability
+        > Every Acceptance Criterion must trace to its parent User Story.
+
+  - type: input
+    id: user_story_reference
+    attributes:
+      label: "User Story Reference ✅"
+      description: "Parent User Story this Acceptance Criterion belongs to."
+      placeholder: "e.g. US-101 Node connection and welcome handshake  /  US-104 Node disconnection detection"
+    validations:
+      required: true
+
+  - type: input
+    id: epic_reference
+    attributes:
+      label: "Epic Reference"
+      description: "Parent epic (for context)."
+      placeholder: "e.g. Epic E1 — C++ TCP Server"
+    validations:
+      required: false
+
+  - type: input
+    id: adr_reference
+    attributes:
+      label: "ADR Reference"
+      description: "ADR(s) that govern this work. Stored in /docs/adr/."
+      placeholder: "e.g. ADR-001, ADR-003"
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 3 — ACCEPTANCE CRITERION
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## ✅ Acceptance Criterion
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description ✅"
+      description: "Describe what must be done to satisfy this acceptance criterion. Be specific, measurable, and testable."
+      placeholder: "The server logs each new connection with: timestamp, client IP, assigned session ID, and total active connections count"
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 4 — DESIGN ARTIFACTS
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🏗️ Design Artifacts
+        > **Design precedes implementation.** No code is written before the design is documented.
+        > Complete this section before moving the issue to `In Progress`.
+
+  - type: dropdown
+    id: adr_required
+    attributes:
+      label: "ADR Required?"
+      description: "Does this issue introduce or modify an architectural decision?"
+      options:
+        - "Yes — ADR created and linked in Traceability above"
+        - "No — Covered by existing ADR (referenced above)"
+        - "No — Implementation task, no new architectural decision"
+    validations:
+      required: true
+
+  - type: textarea
+    id: design_notes
+    attributes:
+      label: "Design Notes / Diagrams"
+      description: "Describe the design approach. Include sequence diagrams, component boundaries, interface contracts, concurrency model, or error-handling strategy as applicable."
+      placeholder: |
+        Component: eop-server
+        Interface: TCP socket, port EOP_PORT
+        Concurrency: thread-per-connection (see ADR-002)
+        Error handling: returns EOP_ERR_DISCONNECTED on peer close — no crash, no UB
+        OTel spans: one span per REGISTER, QUERY_NODE, LIST_NODES, connection, disconnection
+        Log fields: timestamp, level, trace_id, span_id, node_id, event, message
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 5 — TESTING REQUIREMENTS
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🧪 Testing Requirements
+        > Minimum coverage: **90%** on business logic. Trivial / superficial tests are **prohibited**.
+        > CI must pass on all commits before merge.
+
+  - type: textarea
+    id: test_plan
+    attributes:
+      label: "Test Plan ✅"
+      description: "Describe unit, integration, and load/concurrency tests. Include specific cases, edge cases, and error paths."
+      placeholder: |
+        Unit tests:
+          - successful connect → welcome message received within 500 ms
+          - server unavailable → client receives clean error (no crash, no hang)
+          - idle timeout expiry → connection closed gracefully
+
+        Integration tests:
+          - full connect → handshake → disconnect cycle × 100 iterations, zero errors
+          - 10 concurrent clients, zero timeouts
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: test_checklist
+    attributes:
+      label: "Test Checklist"
+      options:
+        - label: "Unit tests cover: normal flow, edge cases, and all error paths"
+          required: false
+        - label: "Integration tests cover: end-to-end flow and cross-squad interoperability (if applicable)"
+          required: false
+        - label: "AddressSanitizer / Valgrind: zero memory leaks, zero uninitialized memory"
+          required: false
+        - label: "ThreadSanitizer: zero data races (mandatory if concurrent code is introduced)"
+          required: false
+        - label: "clang-tidy: zero warnings, zero errors"
+          required: false
+        - label: "cppcheck / scan-build: zero findings"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 6 — DELIVERABLES & DOD
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📦 Deliverables Checklist
+        > A task may only be closed when **all** items below are satisfied.
+
+  - type: checkboxes
+    id: checklist_code
+    attributes:
+      label: "Code Quality"
+      options:
+        - label: "`clang-format` compliance verified — CI passes"
+          required: false
+        - label: "`clang-tidy` — zero warnings, zero errors"
+          required: false
+        - label: "`cppcheck` / `scan-build` — zero findings"
+          required: false
+        - label: "`valgrind` / ASan / TSan — zero memory leaks, zero data races, zero uninitialized memory"
+          required: false
+        - label: "No magic numbers — all literals defined as named constants"
+          required: false
+        - label: "No global variables"
+          required: false
+        - label: "No hardcoded credentials or configuration values"
+          required: false
+        - label: "All inputs validated and sanitized (user / file / network)"
+          required: false
+        - label: "RAII applied to all resources (sockets, file descriptors, memory, mutexes)"
+          required: false
+        - label: "C++ exceptions do not cross module boundaries — public interfaces use error codes or `std::expected`"
+          required: false
+
+  - type: checkboxes
+    id: checklist_docs
+    attributes:
+      label: "Documentation"
+      options:
+        - label: "All public `.hpp` files include Doxygen headers (`@file`, `@brief`, `@details`, `@param`, `@return`, `@pre`, `@post`)"
+          required: false
+        - label: "`.cpp` files include inline comments only — no Doxygen blocks"
+          required: false
+        - label: "`README.md` updated if necessary"
+          required: false
+        - label: "`CHANGELOG.md` entry added for this change"
+          required: false
+
+  - type: checkboxes
+    id: checklist_ci
+    attributes:
+      label: "CI / CD & Deployment"
+      options:
+        - label: "CI pipeline is fully green (build + test + lint + sanitizers)"
+          required: false
+        - label: "At least **one peer review approved** (reviewer ≠ author)"
+          required: false
+
+  - type: checkboxes
+    id: checklist_git
+    attributes:
+      label: "Git Hygiene"
+      options:
+        - label: "All commits are GPG-signed"
+          required: false
+        - label: "Each commit represents one logical change — no bulk commits"
+          required: false
+        - label: "Commit messages follow Conventional Commits"
+          required: false
+        - label: "Branch name follows schema: `feature/<issue-number_description>` or `fix/<issue-number_description>`"
+          required: false
+        - label: "No compiled binaries, libraries (`.so`, `.dll`), log files, or generated files committed"
+          required: false
+        - label: "Target branch is `release/<version>` — direct commits to `main` are PROHIBITED"
+          required: false
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: "✅ Definition of Done"
+      description: "This Acceptance Criterion is Done ONLY when every item below is checked."
+      options:
+        - label: "Code is merged to release branch with CI fully green"
+          required: false
+        - label: "The acceptance criterion is verifiable with an automated test or a reproducible demo"
+          required: false
+        - label: "No memory leaks or data races introduced — verified by CI sanitizers"
+          required: false
+        - label: "Documentation updated if necessary"
+          required: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # SUBMISSION CHECKLIST
+  # ─────────────────────────────────────────────────────────────────────
+  - type: checkboxes
+    id: submission_checklist
+    attributes:
+      label: "Submission Checklist"
+      description: "Confirm before opening this issue."
+      options:
+        - label: "I searched for existing issues and confirmed this is not a duplicate."
+          required: true
+        - label: "All mandatory fields (Team, Milestone, Priority, Size, Estimated Days, Target Date, User Story Reference) are filled."
+          required: true
+        - label: "The description is specific, measurable, and testable."
+          required: true
+        - label: "Test plan covers normal flow, edge cases, and error paths."
+          required: true
