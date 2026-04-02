@@ -158,45 +158,7 @@ body:
       placeholder: "The server logs each new connection with: timestamp, client IP, assigned session ID, and total active connections count"
     validations:
       required: true
-
-  # ─────────────────────────────────────────────────────────────────────
-  # SECTION 4 — DESIGN ARTIFACTS
-  # ─────────────────────────────────────────────────────────────────────
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        ## 🏗️ Design Artifacts
-        > **Design precedes implementation.** No code is written before the design is documented.
-        > Complete this section before moving the issue to `In Progress`.
-
-  - type: dropdown
-    id: adr_required
-    attributes:
-      label: "ADR Required?"
-      description: "Does this issue introduce or modify an architectural decision?"
-      options:
-        - "Yes — ADR created and linked in Traceability above"
-        - "No — Covered by existing ADR (referenced above)"
-        - "No — Implementation task, no new architectural decision"
-    validations:
-      required: true
-
-  - type: textarea
-    id: design_notes
-    attributes:
-      label: "Design Notes / Diagrams"
-      description: "Describe the design approach. Include sequence diagrams, component boundaries, interface contracts, concurrency model, or error-handling strategy as applicable."
-      placeholder: |
-        Component: eop-server
-        Interface: TCP socket, port EOP_PORT
-        Concurrency: thread-per-connection (see ADR-002)
-        Error handling: returns EOP_ERR_DISCONNECTED on peer close — no crash, no UB
-        OTel spans: one span per REGISTER, QUERY_NODE, LIST_NODES, connection, disconnection
-        Log fields: timestamp, level, trace_id, span_id, node_id, event, message
-    validations:
-      required: false
-
+      
   # ─────────────────────────────────────────────────────────────────────
   # SECTION 5 — TESTING REQUIREMENTS
   # ─────────────────────────────────────────────────────────────────────
