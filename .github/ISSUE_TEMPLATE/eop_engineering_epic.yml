@@ -193,18 +193,6 @@ body:
     validations:
       required: false
 
-  - type: checkboxes
-    id: design_checklist
-    attributes:
-      label: "Design Checklist (complete before moving to In Progress)"
-      options:
-        - label: "Component boundaries and responsibilities defined"
-        - label: "Interface / API contract specified (message types, function signatures, or REST endpoints)"
-        - label: "Sequence diagram or interaction diagram created and committed to /docs/design/ (if applicable)"
-        - label: "Concurrency model documented (if applicable)"
-        - label: "Error-handling strategy defined (error codes, failure modes, no exceptions across module boundaries)"
-        - label: "Observability design included: OTel span names, structured log fields, Prometheus metrics exposed"
-
   - type: markdown
     attributes:
       value: |
