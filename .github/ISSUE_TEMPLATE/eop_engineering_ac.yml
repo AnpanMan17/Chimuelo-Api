@@ -2,7 +2,6 @@ name: "✅ EOP Acceptance Criterion"
 description: "Acceptance Criterion — a specific, testable condition that must be met for a User Story to be considered complete."
 title: "ACx. Lorem ipsum"
 labels: ["task"]
-types: ["Task"]
 assignees: []
 body:
 
