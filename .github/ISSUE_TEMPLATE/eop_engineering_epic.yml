@@ -159,9 +159,9 @@ body:
       label: "Story"
       description: "Complete the user story narrative."
       placeholder: |
-        - #US-1XX
-        - #US-1XX
-        - #US-1XX
+        - #US-1XX Lorem ipsum
+        - #US-1XX Lorem ipsum
+        - #US-1XX Lorem ipsum
     validations:
       required: true
 
