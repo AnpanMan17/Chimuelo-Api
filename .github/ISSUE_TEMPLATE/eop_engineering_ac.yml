@@ -18,7 +18,7 @@ body:
         > Workflow: `Triage → Backlog → In Progress → Pending Review → In Review → On Hold → Pending Final Review → In Final Review → Done`
 
 # ─────────────────────────────────────────────────────────────────────
-  # SECTION 2 — TRACEABILITY
+  # SECTION 1 — TRACEABILITY
   # ─────────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
@@ -55,29 +55,19 @@ body:
       required: false
       
   # ─────────────────────────────────────────────────────────────────────
-  # SECTION 5 — TESTING REQUIREMENTS
+  # SECTION 2 — TECHNICAL SCOPE
   # ─────────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
       value: |
         ---
-        ## 🧪 Testing Requirements
-        > Minimum coverage: **90%** on business logic. Trivial / superficial tests are **prohibited**.
-        > CI must pass on all commits before merge.
+        ## ⚙️ Technical Scope
 
   - type: textarea
-    id: test_plan
+    id: scope_in
     attributes:
-      label: "Test Plan ✅"
-      description: "Describe unit, integration, and load/concurrency tests. Include specific cases, edge cases, and error paths."
-      placeholder: |
-        Unit tests:
-          - successful connect → welcome message received within 500 ms
-          - server unavailable → client receives clean error (no crash, no hang)
-          - idle timeout expiry → connection closed gracefully
-
-        Integration tests:
-          - full connect → handshake → disconnect cycle × 100 iterations, zero errors
-          - 10 concurrent clients, zero timeouts
+      label: "What this User Story DOES ✅"
+      description: "One paragraph. Specific about the deliverable. What will exist after this User Story is Done that did not exist before?"
+      placeholder: "Implements the TCP server accept loop and welcome handshake. Delivers a binary that listens on EOP_PORT, accepts connections, sends a welcome message with server version / timestamp / session ID, and handles clean disconnection."
     validations:
       required: false
