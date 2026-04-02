@@ -231,20 +231,6 @@ body:
     validations:
       required: false
 
-  - type: checkboxes
-    id: test_checklist
-    attributes:
-      label: "Test Checklist"
-      options:
-        - label: "Unit tests cover: normal flow, edge cases, and all error paths"
-        - label: "Integration tests cover: end-to-end flow and cross-squad interoperability (if applicable)"
-        - label: "Load / concurrency test covers NFR-1 thresholds (if applicable)"
-        - label: "AddressSanitizer / Valgrind: zero memory leaks, zero uninitialized memory"
-        - label: "ThreadSanitizer: zero data races (mandatory if concurrent code is introduced)"
-        - label: "clang-tidy: zero warnings, zero errors"
-        - label: "cppcheck / scan-build: zero findings"
-        - label: "SonarQube: zero findings"
-
   - type: markdown
     attributes:
       value: |
