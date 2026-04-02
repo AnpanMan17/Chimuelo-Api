@@ -229,18 +229,6 @@ body:
       required: true
 
   - type: textarea
-    id: scope_out
-    attributes:
-      label: "What this issue DOES NOT"
-      description: "Explicit non-goals. Clarify what is out of scope to avoid ambiguity."
-      placeholder: |
-        - Does not modify protocol versioning.
-        - Does not include client SDK changes.
-        - Does not add new observability backend.
-    validations:
-      required: true
-
-  - type: textarea
     id: dependencies
     attributes:
       label: "Dependencies"
@@ -262,7 +250,7 @@ body:
       label: "Test Plan"
       description: "Describe unit, integration, and load/concurrency tests. Include specific cases, edge cases, and error paths."
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: test_checklist
