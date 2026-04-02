@@ -175,9 +175,27 @@ body:
         **So that** <business value / outcome>.
     validations:
       required: true
+      
+  # ─────────────────────────────────────────────────────────────────────
+  # SECTION 4 — TECHNICAL SCOPE
+  # ─────────────────────────────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## ⚙️ Technical Scope
+
+  - type: textarea
+    id: scope_in
+    attributes:
+      label: "What this User Story DOES ✅"
+      description: "One paragraph. Specific about the deliverable. What will exist after this User Story is Done that did not exist before?"
+      placeholder: "Implements the TCP server accept loop and welcome handshake. Delivers a binary that listens on EOP_PORT, accepts connections, sends a welcome message with server version / timestamp / session ID, and handles clean disconnection."
+    validations:
+      required: false
 
   # ─────────────────────────────────────────────────────────────────────
-  # SECTION 4 — ACCEPTANCE CRITERIA
+  # SECTION 5 — ACCEPTANCE CRITERIA
   # ─────────────────────────────────────────────────────────────────────
   - type: markdown
     attributes:
@@ -199,21 +217,3 @@ body:
         - [ ] AC3. Lorem ipsum
     validations:
       required: true
-
-  # ─────────────────────────────────────────────────────────────────────
-  # SECTION 5 — TECHNICAL SCOPE
-  # ─────────────────────────────────────────────────────────────────────
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        ## ⚙️ Technical Scope
-
-  - type: textarea
-    id: scope_in
-    attributes:
-      label: "What this User Story DOES ✅"
-      description: "One paragraph. Specific about the deliverable. What will exist after this User Story is Done that did not exist before?"
-      placeholder: "Implements the TCP server accept loop and welcome handshake. Delivers a binary that listens on EOP_PORT, accepts connections, sends a welcome message with server version / timestamp / session ID, and handles clean disconnection."
-    validations:
-      required: false
