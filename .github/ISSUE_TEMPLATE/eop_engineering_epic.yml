@@ -99,15 +99,6 @@ body:
     validations:
       required: false
 
-  - type: textarea
-    id: notes
-    attributes:
-      label: "Notes"
-      description: "Optional context, external dependencies, risk flags, or relevant links."
-      placeholder: "e.g. Depends on ADR-003 being finalized. Blocking US-104."
-    validations:
-      required: false
-
   - type: markdown
     attributes:
       value: |
